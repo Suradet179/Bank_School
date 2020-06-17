@@ -10,11 +10,13 @@ import { AuthorityEnum } from 'src/app/components/api/student/models/userinfo';
 export class MenuComponent implements OnInit {
   manageStudnetMenuList: any[];
   withdrawStudentMenuList: any[];
+  authority: AuthorityEnum;
   constructor(private studentService: StudentService) {}
 
   ngOnInit() {
+    this.authority = this.studentService.userInfo.authority;
     this.setManageStudentMenuList();
-    console.log(this.studentService.userInfo);
+    this.setWithdrawStudentMenuList();
   }
 
   setManageStudentMenuList() {
@@ -50,7 +52,7 @@ export class MenuComponent implements OnInit {
         authority: AuthorityEnum.T6,
       },
     ];
-    if (this.studentService.userInfo.authority !== AuthorityEnum.ADMIN) {
+    if (this.authority !== AuthorityEnum.ADMIN) {
       const newMnu = this.manageStudnetMenuList.filter(
         (menu) => menu.authority === this.studentService.userInfo.authority
       );
@@ -58,5 +60,44 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  setWithdrawStudentMenuList() {}
+  setWithdrawStudentMenuList() {
+    this.withdrawStudentMenuList = [
+      {
+        title: 'ฝากเงิน - ถอนเงิน ป.1',
+        link: '/main/list-deposit-withdraw1',
+        authority: AuthorityEnum.T1,
+      },
+      {
+        title: 'ฝากเงิน - ถอนเงิน ป.2',
+        link: '/main/list-deposit-withdraw2',
+        authority: AuthorityEnum.T2,
+      },
+      {
+        title: 'ฝากเงิน - ถอนเงิน ป.3',
+        link: '/main/list-deposit-withdraw3',
+        authority: AuthorityEnum.T3,
+      },
+      {
+        title: 'ฝากเงิน - ถอนเงิน ป.4',
+        link: '/main/list-deposit-withdraw4',
+        authority: AuthorityEnum.T4,
+      },
+      {
+        title: 'ฝากเงิน - ถอนเงิน ป.5',
+        link: '/main/list-deposit-withdraw5',
+        authority: AuthorityEnum.T5,
+      },
+      {
+        title: 'ฝากเงิน - ถอนเงิน ป.6',
+        link: '/main/list-deposit-withdraw6',
+        authority: AuthorityEnum.T6,
+      },
+    ];
+    if (this.authority !== AuthorityEnum.ADMIN) {
+      const newMnu = this.withdrawStudentMenuList.filter(
+        (menu) => menu.authority === this.studentService.userInfo.authority
+      );
+      this.withdrawStudentMenuList = newMnu;
+    }
+  }
 }

@@ -47,9 +47,9 @@ firebase.initializeApp(firebaseConfig);
 
 let firestore = firebase.firestore();
 
-const auth = require("./auth")
-app.get("/login/:username/:password", auth.login)
-
+const auth = require("./auth");
+app.get("/login/:username/:password", auth.login);
+app.get("/logout", auth.logout);
 //****************************************************************************
 
 //จัดการข้อมูลนักเรียน

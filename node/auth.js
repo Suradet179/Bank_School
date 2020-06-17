@@ -27,7 +27,19 @@ const login = async (req, res) => {
     return res.status(500).send(error);
   }
 };
-
+const logout = async (req, res) => {
+  try {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        res.status(200).send({ message: "logout success" });
+      });
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+};
 module.exports = {
   login,
+  logout,
 };

@@ -52,79 +52,38 @@
       <!-- ----------------------------------------------------------->
       <hr />
       <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-deposit-withdraw1">
-          <i class="fa fa-dollar"></i> <span>ฝากเงิน - ถอนเงิน ป.1</span>
+      <li
+        class="active treeview menu-open"
+        *ngFor="let withdrawList of withdrawStudentMenuList"
+      >
+        <a [routerLink]="withdrawList.link">
+          <i class="fa fa-dollar"></i> <span>{{ withdrawList.title }}</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
       </li>
-      <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-deposit-withdraw2">
-          <i class="fa fa-dollar"></i> <span>ฝากเงิน - ถอนเงิน ป.2</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
-      <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-deposit-withdraw3">
-          <i class="fa fa-dollar"></i> <span>ฝากเงิน - ถอนเงิน ป.3</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
-      <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-deposit-withdraw4">
-          <i class="fa fa-dollar"></i> <span>ฝากเงิน - ถอนเงิน ป.4</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
-      <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-deposit-withdraw5">
-          <i class="fa fa-dollar"></i> <span>ฝากเงิน - ถอนเงิน ป.5</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
-      <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-deposit-withdraw6">
-          <i class="fa fa-dollar"></i> <span>ฝากเงิน - ถอนเงิน ป.6</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
-      <!-- ----------------------------------------------------------->
       <hr />
       <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-teachers">
-          <i class="fa fa-dollar"></i> <span>จัดการข้อมูลครู</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
-      <!-- ----------------------------------------------------------->
-      <li class="active treeview menu-open">
-        <a routerLink="/main/list-money-sum">
-          <i class="fa fa-dollar"></i> <span>จัดการเงินรวม</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-      </li>
+      <ng-container *ngIf="authority === 'ADMIN'">
+        <li class="active treeview menu-open">
+          <a routerLink="/main/list-teachers">
+            <i class="fa fa-dollar"></i> <span>จัดการข้อมูลครู</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <!-- ----------------------------------------------------------->
+        <li class="active treeview menu-open">
+          <a routerLink="/main/list-money-sum">
+            <i class="fa fa-dollar"></i> <span>จัดการเงินรวม</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+      </ng-container>
       <!-- ----------------------------------------------------------->
     </ul>
   </section>

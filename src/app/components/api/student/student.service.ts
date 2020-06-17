@@ -40,6 +40,10 @@ export class StudentService {
       .pipe(tap((userInfo) => (this.userInfo = userInfo)));
   }
 
+  logout(): Observable<any> {
+    return this.http.get<any>(`${this.apiURL}logout`);
+  }
+
   //////////ข้อมูลนักเรียน
 
   //อ่านข้อมูล

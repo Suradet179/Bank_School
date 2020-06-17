@@ -9,9 +9,21 @@ const login = async (req, res) => {
     const loginResult = await firebase
       .auth()
       .signInWithEmailAndPassword(username, password);
-    res.json(loginResult)
+
+    const { uid } = loginResult.user;
+    let userInfo;
+    await firestore
+      .collection("teacher")
+      .get()
+      .then((snapshort) => {
+        snapshort.forEach((user) => {
+          if (user.data().uuid === uid) {
+            userInfo = user.data();
+          }
+        });
+      });
+    res.json(userInfo);
   } catch (error) {
-    console.log(error);
     return res.status(500).send(error);
   }
 };

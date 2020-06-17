@@ -34,10 +34,20 @@ export class StudentService {
     }),
   };
 
+  setUserInfo(key: string, value: string) {
+    localStorage.setItem(key, value);
+  }
+
   login(username: string, password: string): Observable<any> {
     return this.http
       .get<any>(`${this.apiURL}login/${username}/${password}`)
-      .pipe(tap((userInfo) => (this.userInfo = userInfo)));
+      .pipe(
+        tap((userInfo) => {
+          this.userInfo = userInfo;
+          this.setUserInfo('uuid', userInfo.uuid);
+          this.setUserInfo('authority', userInfo.authority);
+        })
+      );
   }
 
   logout(): Observable<any> {

@@ -10,11 +10,11 @@ import { AuthorityEnum } from 'src/app/components/api/student/models/userinfo';
 export class MenuComponent implements OnInit {
   manageStudnetMenuList: any[];
   withdrawStudentMenuList: any[];
-  authority: AuthorityEnum;
+  authority: string;
   constructor(private studentService: StudentService) {}
 
   ngOnInit() {
-    this.authority = this.studentService.userInfo.authority;
+    this.authority = localStorage.getItem('authority');
     this.setManageStudentMenuList();
     this.setWithdrawStudentMenuList();
   }
@@ -54,7 +54,7 @@ export class MenuComponent implements OnInit {
     ];
     if (this.authority !== AuthorityEnum.ADMIN) {
       const newMnu = this.manageStudnetMenuList.filter(
-        (menu) => menu.authority === this.studentService.userInfo.authority
+        (menu) => menu.authority === this.authority
       );
       this.manageStudnetMenuList = newMnu;
     }
@@ -95,7 +95,7 @@ export class MenuComponent implements OnInit {
     ];
     if (this.authority !== AuthorityEnum.ADMIN) {
       const newMnu = this.withdrawStudentMenuList.filter(
-        (menu) => menu.authority === this.studentService.userInfo.authority
+        (menu) => menu.authority === this.authority
       );
       this.withdrawStudentMenuList = newMnu;
     }

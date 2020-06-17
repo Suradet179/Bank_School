@@ -13,6 +13,8 @@ import { listWithdrawModel } from './listWithdraw';
 import { listDepositModel } from './listDeposit';
 import { listMonthlyModel } from './listMonthly';
 import { listBetweenDateModel } from './listBetweenDate';
+import { UserInfo } from './models/userinfo';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +22,8 @@ import { listBetweenDateModel } from './listBetweenDate';
 export class StudentService {
   //api url
   apiURL = 'http://localhost:3000/';
+
+  userInfo: UserInfo;
   constructor(private http: HttpClient) {}
 
   //headers
@@ -31,7 +35,9 @@ export class StudentService {
   };
 
   login(username: string, password: string): Observable<any> {
-    return this.http.get<any>(`${this.apiURL}login/${username}/${password}`);
+    return this.http
+      .get<any>(`${this.apiURL}login/${username}/${password}`)
+      .pipe(tap((userInfo) => (this.userInfo = userInfo)));
   }
 
   //////////ข้อมูลนักเรียน

@@ -19,12 +19,9 @@ export class LoginComponent implements OnInit {
     if(this.username === "" || this.password === "") {
       alert("Please enter username, password")
     } else {
-      console.log(this.username, this.password)
       this.stundentService.login(this.username, this.password).subscribe(response => {
         console.log(response)
-
-        if(response) {
-          console.log(response)
+        if(response.uuid) {
           this.router.navigate(['/main'])
         }
       })

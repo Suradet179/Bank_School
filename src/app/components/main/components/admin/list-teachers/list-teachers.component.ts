@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from 'src/app/components/api/student/student.service';
+import { AuthorityEnum } from 'src/app/components/api/student/models/userinfo';
 
 @Component({
   selector: 'app-list-teachers',
@@ -31,6 +32,7 @@ export class ListTeachersComponent implements OnInit {
     primary: '',
     email: '',
     password: '',
+    authority: '',
   };
 
   // //สร้างตัวแปรแก้ไขข้อมูลครู
@@ -42,6 +44,7 @@ export class ListTeachersComponent implements OnInit {
     primary: '',
     email: '',
     password: '',
+    authority: '',
   };
 
   constructor(public api: StudentService) {}
@@ -60,6 +63,7 @@ export class ListTeachersComponent implements OnInit {
 
   //ฟังก์ชันบันทึกข้อมูลครู
   submitAddTeacher() {
+    this.mapAuthority('teacherAdd');
     this.api.createTeacher(this.teacherAdd).subscribe((data: {}) => {});
     this.fetchTeacher(); //โหลดข้อมูล
     alert('บันทึกข้อมูลครูเรียบร้อย');
@@ -71,6 +75,7 @@ export class ListTeachersComponent implements OnInit {
       primary: '',
       email: '',
       password: '',
+      authority: '',
     };
   }
 
@@ -84,11 +89,9 @@ export class ListTeachersComponent implements OnInit {
   primary: String;
   email: String;
   password: String;
-
-  //แสดงขอมูลครู
+  authority: AuthorityEnum;
   detailTeacher(id) {
     this.arrayText = [{}];
-    //console.log(this.teacherDetail);
     this.api.getTeacherById(id).subscribe((data) => {
       console.log(data);
       this.arrayText.push(data);
@@ -102,11 +105,10 @@ export class ListTeachersComponent implements OnInit {
       this.email = this.arrayText[1].email;
       this.password = this.arrayText[1].password;
     });
-    // alert(id);
   }
 
-  //บันทึกข้อมูลแก้ไขครู
   submitEditTeacher() {
+    this.mapAuthority('teacherEdit');
     this.api
       .editTeacher(this.teacherEdit.tid, this.teacherEdit)
       .subscribe((data: {}) => {});
@@ -120,12 +122,12 @@ export class ListTeachersComponent implements OnInit {
       primary: '',
       email: '',
       password: '',
+      authority: '',
     };
   }
 
   //แสดงข้อมูลแก้ไขครู
   editTeacher(id) {
-    //alert(id);
     this.arrayText = [{}];
     this.api.getTeacherById(id).subscribe((data) => {
       console.log(data);
@@ -150,5 +152,28 @@ export class ListTeachersComponent implements OnInit {
       });
     }
     //alert(id);
+  }
+
+  mapAuthority(teacher: string) {
+    switch (this[teacher].primary) {
+      case 'ประถมศึกษาปีที่ 1':
+        this[teacher].authority = AuthorityEnum.T1;
+        break;
+      case 'ประถมศึกษาปีที่ 2':
+        this[teacher].authority = AuthorityEnum.T2;
+        break;
+      case 'ประถมศึกษาปีที่ 3':
+        this[teacher].authority = AuthorityEnum.T3;
+        break;
+      case 'ประถมศึกษาปีที่ 4':
+        this[teacher].authority = AuthorityEnum.T4;
+        break;
+      case 'ประถมศึกษาปีที่ 5':
+        this[teacher].authority = AuthorityEnum.T5;
+        break;
+      case 'ประถมศึกษาปีที่ 6':
+        this[teacher].authority = AuthorityEnum.T6;
+        break;
+    }
   }
 }

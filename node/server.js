@@ -158,6 +158,7 @@ app.put("/update_Teacher/:id", (req, res) => {
         fname: req.body.fname,
         lname: req.body.lname,
         primary: req.body.primary,
+        authority: req.body.authority,
       });
       return res.status(200).send();
     } catch (error) {
